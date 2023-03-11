@@ -12,7 +12,7 @@ import 'package:lg_controller/src/utils/SizeScaling.dart';
 class KMLGridContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
-      child: BlocBuilder<NavBarEvent, NavBarState>(
+      child: BlocBuilder<NavBarBloc, NavBarState>(
         bloc: BlocProvider.of<NavBarBloc>(context),
         builder: (BuildContext context, NavBarState state) {
           return GridContent(state);
@@ -30,7 +30,7 @@ class GridContent extends StatelessWidget {
   GridContent(this.choice);
 
   Widget build(BuildContext context) {
-    return BlocBuilder<KMLFilesEvent, KMLFilesState>(
+    return BlocBuilder<KMLFilesBloc, KMLFilesState>(
         bloc: BlocProvider.of<KMLFilesBloc>(context),
         builder: (BuildContext context, KMLFilesState state) {
           if (state is LoadingState) {

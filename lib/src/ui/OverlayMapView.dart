@@ -50,7 +50,7 @@ class OverlayMapView extends StatelessWidget {
 
   Widget build(BuildContext context) {
     getInitialData();
-    return BlocBuilder<OverlayEvent, OverlaysState>(
+    return BlocBuilder<FreezeBloc, OverlaysState>(
         bloc: BlocProvider.of<FreezeBloc>(context),
         builder: (BuildContext context, OverlaysState state) {
           if (state is FrozenState) {
@@ -60,7 +60,7 @@ class OverlayMapView extends StatelessWidget {
             unfreeze = true;
             menu = OverlayMenu.PAN;
           }
-          return BlocBuilder<PointEvent, PointState>(
+          return BlocBuilder<PointBloc, PointState>(
               bloc: BlocProvider.of<PointBloc>(context),
               builder: (BuildContext context, PointState state) {
                 if (state is CompletedState) {

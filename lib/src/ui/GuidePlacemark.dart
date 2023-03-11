@@ -52,15 +52,15 @@ class _GuidePlacemarkState extends State<GuidePlacemark> {
   }
 
   Widget build(BuildContext context) {
-    return BlocProviderTree(
-      blocProviders: [
-        BlocProvider<FreezeBloc>(bloc: fBloc),
-        BlocProvider<PointBloc>(bloc: pBloc),
+    return MultiBlocProvider(
+        providers: [
+        BlocProvider<FreezeBloc>(builder: (context) => fBloc),
+        BlocProvider<PointBloc>(builder: (context) => pBloc),
       ],
-      child: BlocBuilder<PointEvent, PointState>(
+      child: BlocBuilder<PointBloc, PointState>(
           bloc: BlocProvider.of<PointBloc>(context),
           builder: (BuildContext context, PointState state) {
-            return BlocBuilder<OverlayEvent, OverlaysState>(
+            return BlocBuilder<FreezeBloc, OverlaysState>(
                 bloc: BlocProvider.of<FreezeBloc>(context),
                 builder: (BuildContext context, OverlaysState state) {
                   if ( //state is CompletedState &&
@@ -237,77 +237,65 @@ class _GuidePlacemarkState extends State<GuidePlacemark> {
       case 0:
         return GestureDetector(
           onTap: () => setState(() {
-                overlayAnimationState++;
-                showAnimationState = true;
-              }),
+            overlayAnimationState++;
+            showAnimationState = true;
+          }),
           child: Card(
             color: Colors.white54,
           ),
         );
       case 1:
         return GestureDetector(
-          onPanDown: (DragDownDetails) => setState(() {
-                showAnimationState = false;
-              }),
-          child: Align(
-            alignment: Alignment(-1, 0.8),
-            child: Container(
-              height:
-              120+ 120 * 0.5 * (SizeScaling.getWidthScaling()-1),
-              width:
-              120+ 120 * 0.5 * (SizeScaling.getWidthScaling()-1),
-              child: Image(image: Images.TAP_GESTURE),
-            ),
-          )
-        );
+            onPanDown: (DragDownDetails) => setState(() {
+                  showAnimationState = false;
+                }),
+            child: Align(
+              alignment: Alignment(-1, 0.8),
+              child: Container(
+                height: 120 + 120 * 0.5 * (SizeScaling.getWidthScaling() - 1),
+                width: 120 + 120 * 0.5 * (SizeScaling.getWidthScaling() - 1),
+                child: Image(image: Images.TAP_GESTURE),
+              ),
+            ));
       case 2:
         return GestureDetector(
-          onPanDown: (DragDownDetails) => setState(() {
-                showAnimationState = false;
-              }),
-          child: Align(
-            alignment: Alignment(-1, -1.2),
-            child: Container(
-              height:
-              120+ 120 * 0.5 * (SizeScaling.getWidthScaling()-1),
-              width:
-              120+ 120 * 0.5 * (SizeScaling.getWidthScaling()-1),
-              child: Image(image: Images.TAP_GESTURE),
-            ),
-          )
-        );
+            onPanDown: (DragDownDetails) => setState(() {
+                  showAnimationState = false;
+                }),
+            child: Align(
+              alignment: Alignment(-1, -1.2),
+              child: Container(
+                height: 120 + 120 * 0.5 * (SizeScaling.getWidthScaling() - 1),
+                width: 120 + 120 * 0.5 * (SizeScaling.getWidthScaling() - 1),
+                child: Image(image: Images.TAP_GESTURE),
+              ),
+            ));
       case 3:
         return GestureDetector(
-          onPanDown: (DragDownDetails) => setState(() {
-                showAnimationState = false;
-              }),
-          child: Align(
-            alignment: Alignment(0, 0),
-            child: Container(
-              height:
-              120+ 120 * 0.5 * (SizeScaling.getWidthScaling()-1),
-              width:
-              120+ 120 * 0.5 * (SizeScaling.getWidthScaling()-1),
-              child: Image(image: Images.TAP_GESTURE),
-            ),
-          )
-        );
+            onPanDown: (DragDownDetails) => setState(() {
+                  showAnimationState = false;
+                }),
+            child: Align(
+              alignment: Alignment(0, 0),
+              child: Container(
+                height: 120 + 120 * 0.5 * (SizeScaling.getWidthScaling() - 1),
+                width: 120 + 120 * 0.5 * (SizeScaling.getWidthScaling() - 1),
+                child: Image(image: Images.TAP_GESTURE),
+              ),
+            ));
       case 4:
         return GestureDetector(
-          onPanDown: (DragDownDetails) => setState(() {
-                showAnimationState = false;
-              }),
-          child: Align(
-            alignment: Alignment(1.8,-1),
-            child: Container(
-              height:
-              120+ 120 * 0.5 * (SizeScaling.getWidthScaling()-1),
-              width:
-              120+ 120 * 0.5 * (SizeScaling.getWidthScaling()-1),
-              child: Image(image: Images.TAP_GESTURE),
-            ),
-          )
-        );
+            onPanDown: (DragDownDetails) => setState(() {
+                  showAnimationState = false;
+                }),
+            child: Align(
+              alignment: Alignment(1.8, -1),
+              child: Container(
+                height: 120 + 120 * 0.5 * (SizeScaling.getWidthScaling() - 1),
+                width: 120 + 120 * 0.5 * (SizeScaling.getWidthScaling() - 1),
+                child: Image(image: Images.TAP_GESTURE),
+              ),
+            ));
       default:
         return Container();
     }
@@ -326,10 +314,10 @@ class PlacemarkMenu extends StatelessWidget {
       padding: EdgeInsets.all(16),
       child: Card(
           elevation: 4,
-          child: BlocBuilder<PointEvent, PointState>(
+          child: BlocBuilder<PointBloc, PointState>(
               bloc: BlocProvider.of<PointBloc>(context),
               builder: (BuildContext context, PointState state) {
-                return BlocBuilder<OverlayEvent, OverlaysState>(
+                return BlocBuilder<FreezeBloc, OverlaysState>(
                     bloc: BlocProvider.of<FreezeBloc>(context),
                     builder: (BuildContext context, OverlaysState state) {
                       if (state is FrozenState)

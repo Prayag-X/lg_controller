@@ -20,3 +20,5 @@ doc/api/
 *.js.deps
 *.js.map
 mytrial.dart
+android/key.properties
+android/app/upload-keystore.jks

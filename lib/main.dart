@@ -18,6 +18,7 @@ import 'package:toast/toast.dart';
 
 /// Entry point of the application.
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
@@ -50,19 +51,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    OSCActions().receiveFeedback((data)=> Toast.show(
-      'Some error occured in OSC channel. Please retry.',
-      context,
-      duration: Toast.LENGTH_LONG,
-      gravity: Toast.BOTTOM,
-    ));
+    OSCActions().receiveFeedback((data) => Toast.show(
+          'Some error occured in OSC channel. Please retry.',
+          context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.BOTTOM,
+        ));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PageBloc>(
-      bloc: pageBloc,
+      builder: (context) => pageBloc,
       child: MaterialApp(
         title: 'LG Controller',
         routes: routes,
@@ -137,12 +138,6 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    pageBloc.dispose();
   }
 
   /// Returns the base theme used for the app.

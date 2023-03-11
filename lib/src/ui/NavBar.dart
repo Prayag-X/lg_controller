@@ -72,7 +72,7 @@ class NavBar extends StatelessWidget {
     for (var ic in labels) {
       list.add(
         Container(
-          child: BlocBuilder<NavBarEvent, NavBarState>(
+          child: BlocBuilder<NavBarBloc, NavBarState>(
             bloc: BlocProvider.of<NavBarBloc>(context),
             builder: (BuildContext context, NavBarState state) {
               if (ic.title.compareTo(state.toString()) == 0) {

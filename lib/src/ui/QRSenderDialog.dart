@@ -39,10 +39,10 @@ class _QRSenderDialogState extends State<QRSenderDialog> {
   /// Scan the barcode of receiver.
   Future scan() async {
     try {
-      String data = await BarcodeScanner.scan();
-      setState(() => this.data = data);
+      ScanResult data = await BarcodeScanner.scan();
+      setState(() => this.data = data.rawContent);
     } on PlatformException catch (e) {
-      if (e.code == BarcodeScanner.CameraAccessDenied) {
+      if (e.code == BarcodeScanner.cameraAccessDenied) {
         setState(() {
           this.data = "";
         });

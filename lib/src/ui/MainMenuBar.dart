@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lg_controller/src/blocs/PageBloc.dart';
 import 'package:lg_controller/src/menu/MainMenu.dart';
+import 'package:lg_controller/src/screens/GuidePage.dart';
+import 'package:lg_controller/src/screens/HomePage.dart';
+import 'package:lg_controller/src/screens/OverlayPage.dart';
+import 'package:lg_controller/src/screens/POIPage.dart';
+import 'package:lg_controller/src/screens/TourPage.dart';
 import 'package:lg_controller/src/states_events/PageActions.dart';
 import 'package:lg_controller/src/utils/SizeScaling.dart';
+import 'package:page_transition/page_transition.dart';
 
 /// Main menu bar widget.
 class MainMenuBar extends StatelessWidget {
@@ -70,26 +76,56 @@ class MainMenuBar extends StatelessWidget {
       case MainMenu.HOME:
         {
           BlocProvider.of<PageBloc>(context).dispatch(HOME(null));
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  child: HomePage(null)));
         }
         break;
       case MainMenu.TOURS:
         {
           BlocProvider.of<PageBloc>(context).dispatch(TOUR());
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  child: TourPage()));
         }
         break;
       case MainMenu.POI:
         {
           BlocProvider.of<PageBloc>(context).dispatch(POI());
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  child: POIPage()));
         }
         break;
       case MainMenu.GUIDE:
         {
           BlocProvider.of<PageBloc>(context).dispatch(GUIDE());
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  child: GuidePage()));
         }
         break;
       case MainMenu.OVERLAY:
         {
           BlocProvider.of<PageBloc>(context).dispatch(OVERLAY());
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  child: OverlayPage()));
         }
         break;
       default:

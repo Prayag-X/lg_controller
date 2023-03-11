@@ -43,10 +43,10 @@ class _POIPageState extends State<POIPage> {
                   child: TitleBar(MainMenu.POI),
                 ),
                 Expanded(
-                  child: BlocProviderTree(
-                    blocProviders: [
-                      BlocProvider<NavBarBloc>(bloc: nvBloc),
-                      BlocProvider<KMLFilesBloc>(bloc: fBloc),
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider<NavBarBloc>(builder: (context) => nvBloc),
+                      BlocProvider<KMLFilesBloc>(builder: (context) => fBloc),
                     ],
                     child: Container(
                       padding: EdgeInsets.fromLTRB(0, 8, 8, 0),

@@ -5,7 +5,10 @@ import 'package:lg_controller/src/blocs/PageBloc.dart';
 import 'package:lg_controller/src/states_events/PageActions.dart';
 import 'package:lg_controller/src/ui/OSCDialog.dart';
 import 'package:lg_controller/src/ui/ScreenBackground.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'HomePage.dart';
 
 /// Tutorial screen root.
 class TutorialPage extends StatefulWidget {
@@ -24,6 +27,7 @@ class _TutorialPageState extends State<TutorialPage> with NavigatorObserver {
 
   @override
   Widget build(BuildContext context) {
+    setState(() => context = context);
     return WillPopScope(
       onWillPop: () => SystemNavigator.pop(),
       child: Scaffold(
@@ -48,10 +52,16 @@ class _TutorialPageState extends State<TutorialPage> with NavigatorObserver {
     SharedPreferences.getInstance().then((prefs) async {
       final dataString = prefs.getString('ip') ?? '';
       if ((dataString.compareTo('')) == 0) {
-        await setOSCParams();
+        setOSCParams();
       } else {
         if (!isFirstTime()) {
           BlocProvider.of<PageBloc>(context).dispatch(HOME(null));
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  child: HomePage(null)));
         }
       }
     });
@@ -79,8 +89,15 @@ class _TutorialPageState extends State<TutorialPage> with NavigatorObserver {
       prefs.setInt('id', id);
       if (!isFirstTime()) {
         BlocProvider.of<PageBloc>(context).dispatch(HOME(null));
+        Navigator.pushReplacement(
+            context,
+            PageTransition(
+                type: PageTransitionType.fade,
+                duration: Duration(milliseconds: 250),
+                child: HomePage(null)));
       }
     } catch (e) {
+      print(e);
       print('Error : In setting OSC params.');
     }
   }

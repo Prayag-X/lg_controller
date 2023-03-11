@@ -24,10 +24,9 @@ class OverlayMenuBar extends StatelessWidget {
       padding: EdgeInsets.all(16),
       child: Card(
           elevation: 4,
-          child: BlocBuilder<PointEvent, PointState>(
-              bloc: BlocProvider.of<PointBloc>(context),
+          child: BlocBuilder<PointBloc, PointState>(
               builder: (BuildContext context, PointState state) {
-                return BlocBuilder<OverlayEvent, OverlaysState>(
+                return BlocBuilder<FreezeBloc, OverlaysState>(
                     bloc: BlocProvider.of<FreezeBloc>(context),
                     builder: (BuildContext context, OverlaysState state) {
                       if (state is FrozenState)

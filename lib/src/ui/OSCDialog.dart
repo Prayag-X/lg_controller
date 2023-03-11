@@ -50,8 +50,12 @@ class _OSCDialogState extends State<OSCDialog> {
                     if (ip_key.currentState.validate() &&
                         soc_key.currentState.validate() &&
                         id_key.currentState.validate())
-                      await widget.setParams(ip_controller.text,
-                          soc_controller.text, id_controller.text);
+                      {
+                        await widget.setParams(ip_controller.text,
+                            soc_controller.text, id_controller.text);
+                        Navigator.of(context).pop();
+                      }
+
                     else
                       setState(() {
                         loading = false;

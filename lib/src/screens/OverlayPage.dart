@@ -48,10 +48,10 @@ class _OverlayPageState extends State<OverlayPage> {
                   child: TitleBar(MainMenu.OVERLAY),
                 ),
                 Expanded(
-                  child: BlocProviderTree(
-                    blocProviders: [
-                      BlocProvider<FreezeBloc>(bloc: fBloc),
-                      BlocProvider<PointBloc>(bloc: pBloc),
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider<FreezeBloc>(builder: (context) => fBloc),
+                      BlocProvider<PointBloc>(builder: (context) => pBloc),
                     ],
                     child: Container(
                       padding:

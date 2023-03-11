@@ -5,8 +5,11 @@ import 'package:lg_controller/src/blocs/PageBloc.dart';
 import 'package:lg_controller/src/menu/AuxillaryMenu.dart';
 import 'package:lg_controller/src/osc/ModuleType.dart';
 import 'package:lg_controller/src/osc/OSCActions.dart';
+import 'package:lg_controller/src/screens/ProfilePage.dart';
+import 'package:lg_controller/src/screens/SettingsPage.dart';
 import 'package:lg_controller/src/states_events/PageActions.dart';
 import 'package:lg_controller/src/utils/SizeScaling.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// auxillary menu bar widget.
@@ -63,11 +66,23 @@ class AuxillaryMenuBar extends StatelessWidget {
       case AuxillaryMenu.PROFILE:
         {
           BlocProvider.of<PageBloc>(context).dispatch(PROFILE());
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  child: ProfilePage()));
         }
         break;
       case AuxillaryMenu.SETTINGS:
         {
           BlocProvider.of<PageBloc>(context).dispatch(SETTINGS());
+          Navigator.pushReplacement(
+              context,
+              PageTransition(
+                  type: PageTransitionType.fade,
+                  duration: Duration(milliseconds: 250),
+                  child: SettingsPage()));
         }
         break;
       default:
